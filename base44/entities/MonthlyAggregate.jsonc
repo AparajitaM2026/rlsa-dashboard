@@ -1,0 +1,122 @@
+{
+  "name": "MonthlyAggregate",
+  "type": "object",
+  "properties": {
+    "report_month": {
+      "type": "string",
+      "description": "Statement period YYYY-MM"
+    },
+    "total_rows": {
+      "type": "number",
+      "default": 0
+    },
+    "house_gross": {
+      "type": "number",
+      "default": 0
+    },
+    "house_rows": {
+      "type": "number",
+      "default": 0
+    },
+    "house_units": {
+      "type": "number",
+      "default": 0
+    },
+    "client_gross": {
+      "type": "number",
+      "default": 0
+    },
+    "client_rows": {
+      "type": "number",
+      "default": 0
+    },
+    "client_units": {
+      "type": "number",
+      "default": 0
+    },
+    "unmapped_gross": {
+      "type": "number",
+      "default": 0
+    },
+    "unmapped_rows": {
+      "type": "number",
+      "default": 0
+    },
+    "per_client": {
+      "type": "string",
+      "description": "JSON array of {client_account_id,gross,units,track_count}"
+    },
+    "per_country": {
+      "type": "string",
+      "description": "JSON array of {key,gross,units,rows}"
+    },
+    "per_store": {
+      "type": "string",
+      "description": "JSON array of {key,gross,units,rows}"
+    },
+    "per_imprint": {
+      "type": "string",
+      "description": "JSON array of {key,gross,units,rows,is_unmapped,is_house}"
+    },
+    "per_vendor": {
+      "type": "string",
+      "description": "JSON array of {key,gross,units,rows} per distributor vendor"
+    },
+    "unmapped_imprints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "scan_skip": {
+      "type": "number",
+      "default": 0,
+      "description": "Row offset consumed so far during resumable aggregation"
+    },
+    "scan_complete": {
+      "type": "boolean",
+      "default": false,
+      "description": "True once the full-period scan has finished"
+    },
+    "computed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "party_id": {
+      "type": "string",
+      "description": "Party / tenant id this aggregate belongs to"
+    }
+  },
+  "required": [
+    "report_month"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.party_id": "{{user.data.party_id}}"
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

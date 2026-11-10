@@ -1,0 +1,324 @@
+{
+  "name": "Run Catalog Search",
+  "description": "Background catalog search triggered when an admin creates a CatalogSearchJob. Scans RevenueRow records in resumable 60k-row passes (up to 1.2M rows total) and caches results on the job entity.",
+  "trigger": {
+    "config": {
+      "trigger_type": "entity",
+      "entity_name": "CatalogSearchJob",
+      "events": [
+        "create"
+      ]
+    },
+    "condition": "${ .trigger.data.status == \"pending\" }"
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "run_catalog_search",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "s1": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s2",
+          "x-base44": {
+            "title": "Search pass 1"
+          }
+        }
+      },
+      {
+        "s2": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s3",
+          "x-base44": {
+            "title": "Search pass 2"
+          }
+        }
+      },
+      {
+        "s3": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s4",
+          "x-base44": {
+            "title": "Search pass 3"
+          }
+        }
+      },
+      {
+        "s4": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s5",
+          "x-base44": {
+            "title": "Search pass 4"
+          }
+        }
+      },
+      {
+        "s5": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s6",
+          "x-base44": {
+            "title": "Search pass 5"
+          }
+        }
+      },
+      {
+        "s6": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s7",
+          "x-base44": {
+            "title": "Search pass 6"
+          }
+        }
+      },
+      {
+        "s7": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s8",
+          "x-base44": {
+            "title": "Search pass 7"
+          }
+        }
+      },
+      {
+        "s8": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s9",
+          "x-base44": {
+            "title": "Search pass 8"
+          }
+        }
+      },
+      {
+        "s9": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s10",
+          "x-base44": {
+            "title": "Search pass 9"
+          }
+        }
+      },
+      {
+        "s10": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s11",
+          "x-base44": {
+            "title": "Search pass 10"
+          }
+        }
+      },
+      {
+        "s11": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s12",
+          "x-base44": {
+            "title": "Search pass 11"
+          }
+        }
+      },
+      {
+        "s12": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s13",
+          "x-base44": {
+            "title": "Search pass 12"
+          }
+        }
+      },
+      {
+        "s13": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s14",
+          "x-base44": {
+            "title": "Search pass 13"
+          }
+        }
+      },
+      {
+        "s14": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s15",
+          "x-base44": {
+            "title": "Search pass 14"
+          }
+        }
+      },
+      {
+        "s15": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s16",
+          "x-base44": {
+            "title": "Search pass 15"
+          }
+        }
+      },
+      {
+        "s16": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s17",
+          "x-base44": {
+            "title": "Search pass 16"
+          }
+        }
+      },
+      {
+        "s17": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s18",
+          "x-base44": {
+            "title": "Search pass 17"
+          }
+        }
+      },
+      {
+        "s18": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s19",
+          "x-base44": {
+            "title": "Search pass 18"
+          }
+        }
+      },
+      {
+        "s19": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "s20",
+          "x-base44": {
+            "title": "Search pass 19"
+          }
+        }
+      },
+      {
+        "s20": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "runCatalogSearchJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Search pass 20"
+          }
+        }
+      }
+    ]
+  }
+}

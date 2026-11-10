@@ -1,0 +1,141 @@
+{
+  "name": "SupportTicket",
+  "type": "object",
+  "properties": {
+    "subject": {
+      "type": "string",
+      "description": "Short title for the support question"
+    },
+    "message": {
+      "type": "string",
+      "description": "Initial message body describing the question"
+    },
+    "period": {
+      "type": "string",
+      "description": "Reporting period (YYYY-MM) the question relates to"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "in_progress",
+        "answered",
+        "closed"
+      ],
+      "default": "open"
+    },
+    "client_account_id": {
+      "type": "string",
+      "description": "ClientAccount the ticket belongs to (resolved from the author's email)"
+    },
+    "created_by_name": {
+      "type": "string",
+      "description": "Display name of the ticket author (denormalized at creation)"
+    },
+    "created_by_email": {
+      "type": "string",
+      "description": "Email of the ticket author (denormalized at creation)"
+    },
+    "party_id": {
+      "type": "string",
+      "description": "Party / tenant id this ticket belongs to"
+    }
+  },
+  "required": [
+    "subject",
+    "message",
+    "status"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    },
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

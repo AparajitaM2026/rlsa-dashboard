@@ -1,0 +1,148 @@
+{
+  "name": "ClientAccount",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string",
+      "description": "Display / imprint name of the label client"
+    },
+    "contact_email": {
+      "type": "string",
+      "description": "Email of the platform user mapped to this client (matches login email)"
+    },
+    "contact_phone": {
+      "type": "string",
+      "description": "Optional contact phone number"
+    },
+    "revenue_share_pct": {
+      "type": "number",
+      "default": 85,
+      "description": "Percentage of gross revenue the client receives (0-100)"
+    },
+    "is_house_account": {
+      "type": "boolean",
+      "default": "false",
+      "description": "True if this is the OTT house catalog account"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "default": "active"
+    },
+    "notify_payouts": {
+      "type": "boolean",
+      "default": true,
+      "description": "Notify client when a payout is issued"
+    },
+    "notify_monthly_report": {
+      "type": "boolean",
+      "default": true,
+      "description": "Notify client when a monthly report is available"
+    },
+    "notify_unmapped": {
+      "type": "boolean",
+      "default": false,
+      "description": "Notify client about unmapped imprint issues"
+    },
+    "party_id": {
+      "type": "string",
+      "description": "Party / tenant id this client belongs to"
+    }
+  },
+  "required": [
+    "client_name",
+    "revenue_share_pct"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        },
+        {
+          "data.contact_email": "{{user.email}}"
+        }
+      ]
+    },
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "name": "Party",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name of the party / tenant (e.g. OTT Solutions)"
+    },
+    "code": {
+      "type": "string",
+      "description": "Short unique code identifying the party"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "default": "active"
+    },
+    "contact_email": {
+      "type": "string",
+      "description": "Primary contact email for the party"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional notes about the party / agreement"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "id": "{{user.data.party_id}}"
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

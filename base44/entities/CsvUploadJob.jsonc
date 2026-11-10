@@ -1,0 +1,165 @@
+{
+  "name": "CsvUploadJob",
+  "type": "object",
+  "properties": {
+    "file_url": {
+      "type": "string",
+      "description": "Uploaded CSV/archive file URL, or a public remote URL (e.g. GitHub raw) to fetch server-side"
+    },
+    "report_month": {
+      "type": "string",
+      "description": "Reporting month YYYY-MM (used as fallback for multi-month PDL files)"
+    },
+    "vendor_name": {
+      "type": "string",
+      "default": "Orchard",
+      "description": "Distributor / vendor source for this upload batch"
+    },
+    "multi_month": {
+      "type": "boolean",
+      "default": false,
+      "description": "True for multi-month files \u2014 each row's Month/Year columns determine its statement period"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "processing",
+        "completed",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "total": {
+      "type": "number",
+      "default": 0
+    },
+    "house": {
+      "type": "number",
+      "default": 0
+    },
+    "client": {
+      "type": "number",
+      "default": 0
+    },
+    "unmapped": {
+      "type": "number",
+      "default": 0
+    },
+    "unmapped_imprints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rows_processed": {
+      "type": "number",
+      "default": 0,
+      "description": "Rows parsed so far (live progress)"
+    },
+    "bytes_total": {
+      "type": "number",
+      "default": 0,
+      "description": "Total CSV size in bytes (plain), or fragment count (compressed)"
+    },
+    "bytes_processed": {
+      "type": "number",
+      "default": 0,
+      "description": "Byte offset consumed (plain), or fragment index (compressed)"
+    },
+    "csv_header": {
+      "type": "string",
+      "description": "Serialized CSV header row, cached for resumable chunked processing"
+    },
+    "fragments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Extracted plain-CSV fragment file_urls (compressed uploads)"
+    },
+    "fragment_index": {
+      "type": "number",
+      "default": 0,
+      "description": "Index of the next fragment to process"
+    },
+    "dedup_cleared": {
+      "type": "boolean",
+      "default": false,
+      "description": "True after the period's existing revenue rows were wiped on first processing (dedup guard so re-imports replace, not duplicate)"
+    },
+    "error": {
+      "type": "string"
+    },
+    "party_id": {
+      "type": "string",
+      "description": "Party / tenant id this upload job belongs to"
+    }
+  },
+  "required": [
+    "file_url",
+    "report_month",
+    "status"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.party_id": "{{user.data.party_id}}"
+        }
+      ]
+    },
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

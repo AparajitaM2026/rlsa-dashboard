@@ -1,0 +1,131 @@
+{
+  "name": "CatalogSearchJob",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string",
+      "description": "Search query text entered by the admin"
+    },
+    "source": {
+      "type": "string",
+      "default": "house",
+      "description": "Source filter: 'house', 'all', or a ClientAccount id"
+    },
+    "source_label": {
+      "type": "string",
+      "description": "Human-readable source name for display in recent searches"
+    },
+    "period": {
+      "type": "string",
+      "description": "Report month YYYY-MM or 'all'"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "processing",
+        "completed",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "results": {
+      "type": "string",
+      "description": "JSON array of matching tracks (cached for instant reload)"
+    },
+    "imprints": {
+      "type": "string",
+      "description": "JSON array of matching imprints (cached for instant reload)"
+    },
+    "track_count": {
+      "type": "number",
+      "default": 0
+    },
+    "imprint_count": {
+      "type": "number",
+      "default": 0
+    },
+    "skip_offset": {
+      "type": "number",
+      "default": 0,
+      "description": "Row offset consumed so far (resumable scanning)"
+    },
+    "scanned": {
+      "type": "number",
+      "default": 0,
+      "description": "Total rows scanned across all passes"
+    },
+    "error": {
+      "type": "string"
+    },
+    "party_id": {
+      "type": "string",
+      "description": "Party / tenant id this search job belongs to"
+    }
+  },
+  "required": [
+    "query",
+    "status"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.party_id": "{{user.data.party_id}}"
+        }
+      ]
+    },
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

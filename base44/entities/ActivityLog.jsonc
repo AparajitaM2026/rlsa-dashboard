@@ -1,0 +1,70 @@
+{
+  "name": "ActivityLog",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string",
+      "description": "Machine-readable action key, e.g. label_mapping_created"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable summary of the action"
+    },
+    "entity_type": {
+      "type": "string",
+      "description": "Type of entity affected (e.g. LabelMapping, ClientAccount)"
+    },
+    "entity_id": {
+      "type": "string",
+      "description": "Id of the affected entity record"
+    },
+    "metadata": {
+      "type": "string",
+      "description": "JSON string of extra context"
+    },
+    "party_id": {
+      "type": "string",
+      "description": "Party / tenant id of the acting user"
+    }
+  },
+  "required": [
+    "action",
+    "description"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.party_id": "{{user.data.party_id}}"
+        }
+      ]
+    },
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.party_id": "{{user.data.party_id}}"
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

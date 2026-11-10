@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --background: 268 45% 7%;
+    --foreground: 280 15% 96%;
+    --card: 268 35% 12%;
+    --card-foreground: 280 15% 96%;
+    --popover: 268 35% 11%;
+    --popover-foreground: 280 15% 96%;
+    --primary: 43 96% 56%;
+    --primary-foreground: 35 80% 10%;
+    --secondary: 285 45% 24%;
+    --secondary-foreground: 280 15% 96%;
+    --muted: 268 25% 16%;
+    --muted-foreground: 275 15% 70%;
+    --accent: 288 85% 65%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 270 25% 20%;
+    --input: 270 25% 18%;
+    --ring: 43 96% 56%;
+    --chart-1: 43 96% 56%;
+    --chart-2: 288 85% 65%;
+    --chart-3: 197 75% 55%;
+    --chart-4: 155 68% 45%;
+    --chart-5: 320 80% 60%;
+    --radius: 0.625rem;
+    --font-heading: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --sidebar-background: 268 45% 6%;
+    --sidebar-foreground: 280 15% 94%;
+    --sidebar-primary: 43 96% 56%;
+    --sidebar-primary-foreground: 35 80% 10%;
+    --sidebar-accent: 275 35% 16%;
+    --sidebar-accent-foreground: 43 96% 56%;
+    --sidebar-border: 270 25% 15%;
+    --sidebar-ring: 43 96% 56%;
+  }
+
+  .dark {
+    color-scheme: dark;
+    --background: 268 45% 7%;
+    --foreground: 280 15% 96%;
+    --card: 268 35% 12%;
+    --card-foreground: 280 15% 96%;
+    --popover: 268 35% 11%;
+    --popover-foreground: 280 15% 96%;
+    --primary: 43 96% 56%;
+    --primary-foreground: 35 80% 10%;
+    --secondary: 285 45% 24%;
+    --secondary-foreground: 280 15% 96%;
+    --muted: 268 25% 16%;
+    --muted-foreground: 275 15% 70%;
+    --accent: 288 85% 65%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 270 25% 20%;
+    --input: 270 25% 18%;
+    --ring: 43 96% 56%;
+    --chart-1: 43 96% 56%;
+    --chart-2: 288 85% 65%;
+    --chart-3: 197 75% 55%;
+    --chart-4: 155 68% 45%;
+    --chart-5: 320 80% 60%;
+    --sidebar-background: 268 45% 6%;
+    --sidebar-foreground: 280 15% 94%;
+    --sidebar-primary: 43 96% 56%;
+    --sidebar-primary-foreground: 35 80% 10%;
+    --sidebar-accent: 275 35% 16%;
+    --sidebar-accent-foreground: 43 96% 56%;
+    --sidebar-border: 270 25% 15%;
+    --sidebar-ring: 43 96% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    color-scheme: dark;
+  }
+
+  select {
+    color-scheme: dark !important;
+    background-color: hsl(var(--card)) !important;
+    color: hsl(var(--foreground)) !important;
+  }
+
+  select option {
+    background-color: #191026 !important;
+    color: #f8f5fc !important;
+  }
+
+  select option:checked {
+    background-color: #fbb01b !important;
+    color: #1a0f02 !important;
+  }
+}

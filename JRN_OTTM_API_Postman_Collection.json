@@ -1,0 +1,229 @@
+{
+  "info": {
+    "name": "OTTM Connect — JRN Platform REST API (v1)",
+    "description": "Production API Collection for JRN Platform direct distribution, royalty sync, and payouts.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{API_KEY}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "1. System Ping & Capabilities",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/v1/ping",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "ping"
+          ]
+        }
+      }
+    },
+    {
+      "name": "2. Upload Audio / Artwork Master",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{base_url}}/api/v1/distribution/upload",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "distribution",
+            "upload"
+          ]
+        },
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "3. Submit Release (Distribution Pipeline)",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{base_url}}/api/v1/distribution/releases",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "distribution",
+            "releases"
+          ]
+        },
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"release_title\": \"Dhadkan\",\n  \"artist_name\": \"Arijit Singh\",\n  \"release_date\": \"2026-10-30\",\n  \"genre\": \"Pop\",\n  \"language\": \"Hindi\",\n  \"artwork_url\": \"https://cdn.jrn.com/art/dhadkan.jpg\",\n  \"tracks\": [\n    {\n      \"title\": \"Dhadkan (Original)\",\n      \"audio_url\": \"https://cdn.jrn.com/audio/dhadkan.wav\",\n      \"isrc\": \"INXX12345678\",\n      \"explicit\": false\n    }\n  ]\n}"
+        }
+      }
+    },
+    {
+      "name": "4. List Releases & Status",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/v1/distribution/releases",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "distribution",
+            "releases"
+          ]
+        }
+      }
+    },
+    {
+      "name": "5. Get Single Release / DSP Links",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/v1/distribution/releases/:id",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "distribution",
+            "releases",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "release_id_here"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "6. Request Takedown",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{base_url}}/api/v1/distribution/releases/:id/takedown",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "distribution",
+            "releases",
+            ":id",
+            "takedown"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "release_id_here"
+            }
+          ]
+        },
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"reason\": \"Contract expired\"\n}"
+        }
+      }
+    },
+    {
+      "name": "7. Revenue Summary & Streams",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/v1/revenue/summary?period=all",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "revenue",
+            "summary"
+          ],
+          "query": [
+            {
+              "key": "period",
+              "value": "all"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "8. Payout History & Statements",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/v1/payouts",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "payouts"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ]
+}

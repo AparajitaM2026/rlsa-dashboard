@@ -1,0 +1,216 @@
+{
+  "name": "Release",
+  "type": "object",
+  "properties": {
+    "release_title": {
+      "type": "string",
+      "description": "Title of the release"
+    },
+    "release_type": {
+      "type": "string",
+      "enum": [
+        "single",
+        "ep",
+        "album"
+      ],
+      "description": "Type: Single, EP, or Album"
+    },
+    "artist_name": {
+      "type": "string",
+      "description": "Primary artist name(s)"
+    },
+    "primary_genre": {
+      "type": "string"
+    },
+    "sub_genre": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "release_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "p_line": {
+      "type": "string",
+      "description": "P-Line copyright notice"
+    },
+    "c_line": {
+      "type": "string",
+      "description": "C-Line copyright notice"
+    },
+    "upc_ean": {
+      "type": "string",
+      "description": "UPC/EAN barcode (auto-generated if blank)"
+    },
+    "client_account_id": {
+      "type": "string",
+      "description": "ClientAccount that submitted this release"
+    },
+    "client_name": {
+      "type": "string",
+      "description": "Cached client display name"
+    },
+    "sub_label_id": {
+      "type": "string",
+      "description": "SubLabel id (null for main label)"
+    },
+    "sub_label_name": {
+      "type": "string",
+      "description": "Cached sub-label name"
+    },
+    "artwork_url": {
+      "type": "string",
+      "description": "Public URL of uploaded artwork file"
+    },
+    "tracks": {
+      "type": "string",
+      "description": "JSON array of track objects: {title, version, isrc, explicit, composers, lyricists, audio_url, audio_filename}"
+    },
+    "streaming_links": {
+      "type": "string",
+      "description": "JSON object of streaming platform URLs: {spotify, itunes, amazon, gaana, jiosaavn, other}"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending_review",
+        "approved",
+        "rejected"
+      ],
+      "default": "pending_review"
+    },
+    "admin_remarks": {
+      "type": "string",
+      "description": "Admin feedback on rejection or action needed"
+    },
+    "submitted_by_email": {
+      "type": "string"
+    },
+    "submitted_by_name": {
+      "type": "string"
+    },
+    "party_id": {
+      "type": "string",
+      "description": "Party / tenant id this release belongs to"
+    }
+  },
+  "required": [
+    "release_title",
+    "release_type",
+    "artist_name",
+    "client_account_id",
+    "status"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        },
+        {
+          "$and": [
+            {
+              "data.client_account_id": "{{user.data.client_account_id}}"
+            },
+            {
+              "data.client_account_id": {
+                "$ne": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        },
+        {
+          "$and": [
+            {
+              "data.client_account_id": "{{user.data.client_account_id}}"
+            },
+            {
+              "data.client_account_id": {
+                "$ne": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "name": "TicketMessage",
+  "type": "object",
+  "properties": {
+    "ticket_id": {
+      "type": "string",
+      "description": "SupportTicket this message belongs to"
+    },
+    "author_role": {
+      "type": "string",
+      "enum": [
+        "client",
+        "admin"
+      ],
+      "description": "Role of the message author"
+    },
+    "author_email": {
+      "type": "string",
+      "description": "Email of the author"
+    },
+    "body": {
+      "type": "string",
+      "description": "Message content"
+    },
+    "party_id": {
+      "type": "string",
+      "description": "Party / tenant id this message belongs to"
+    }
+  },
+  "required": [
+    "ticket_id",
+    "author_role",
+    "body"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.party_id": "{{user.data.party_id}}"
+        }
+      ]
+    },
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.party_id": "{{user.data.party_id}}"
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

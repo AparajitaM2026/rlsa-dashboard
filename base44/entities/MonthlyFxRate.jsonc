@@ -1,0 +1,28 @@
+{
+  "name": "MonthlyFxRate",
+  "type": "object",
+  "properties": {
+    "year": {
+      "type": "number",
+      "description": "Year of the exchange rate (e.g. 2025)"
+    },
+    "month": {
+      "type": "number",
+      "description": "Month number 1-12"
+    },
+    "rate": {
+      "type": "number",
+      "description": "INR per 1 USD (e.g. 83.50 means 1 USD = 83.50 INR)"
+    },
+    "source": {
+      "type": "string",
+      "default": "frankfurter",
+      "description": "Where the rate was obtained: 'frankfurter' (auto-fetched from API) or 'manual'"
+    }
+  },
+  "required": [
+    "year",
+    "month",
+    "rate"
+  ]
+}

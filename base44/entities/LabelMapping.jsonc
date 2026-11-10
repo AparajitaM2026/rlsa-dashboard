@@ -1,0 +1,76 @@
+{
+  "name": "LabelMapping",
+  "type": "object",
+  "properties": {
+    "raw_imprint": {
+      "type": "string",
+      "description": "Raw LABEL IMPRINT string exactly as it appears in the Orchard CSV"
+    },
+    "client_account_id": {
+      "type": "string",
+      "description": "Mapped ClientAccount id (blank when is_house)"
+    },
+    "is_house": {
+      "type": "boolean",
+      "default": false,
+      "description": "True routes matching rows to the house catalog"
+    },
+    "party_id": {
+      "type": "string",
+      "description": "Party / tenant id this mapping belongs to"
+    }
+  },
+  "required": [
+    "raw_imprint"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.party_id": "{{user.data.party_id}}"
+        }
+      ]
+    },
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.party_id": "{{user.data.party_id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.party_id": "{{user.data.party_id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.party_id": "{{user.data.party_id}}"
+        }
+      ]
+    }
+  }
+}

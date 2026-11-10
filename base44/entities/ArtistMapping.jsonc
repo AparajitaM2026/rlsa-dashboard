@@ -1,0 +1,141 @@
+{
+  "name": "ArtistMapping",
+  "type": "object",
+  "properties": {
+    "match_type": {
+      "type": "string",
+      "enum": [
+        "isrc",
+        "track_title",
+        "album_title"
+      ],
+      "description": "Which CSV field to match against"
+    },
+    "match_value": {
+      "type": "string",
+      "description": "Value to match (ISRC code, track title, or album title) \u2014 matched case-insensitively"
+    },
+    "client_account_id": {
+      "type": "string",
+      "description": "ClientAccount (artist) that receives matching revenue"
+    },
+    "revenue_share_pct": {
+      "type": "number",
+      "default": 70,
+      "description": "Artist revenue share percentage (0-100)"
+    },
+    "override_label": {
+      "type": "boolean",
+      "default": false,
+      "description": "If true, overrides label mapping; if false, applies only when no label mapping is found"
+    },
+    "party_id": {
+      "type": "string",
+      "description": "Party / tenant id this mapping belongs to"
+    }
+  },
+  "required": [
+    "match_type",
+    "match_value",
+    "client_account_id",
+    "revenue_share_pct"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        },
+        {
+          "$and": [
+            {
+              "data.client_account_id": "{{user.data.client_account_id}}"
+            },
+            {
+              "data.client_account_id": {
+                "$ne": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

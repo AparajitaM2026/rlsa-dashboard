@@ -1,0 +1,394 @@
+{
+  "ClientAccount": [
+    {
+      "id": "ca_ott_house_01",
+      "client_name": "OTT House Catalog",
+      "contact_email": "admin@ottm.com",
+      "contact_phone": "+91 98765 43210",
+      "revenue_share_pct": 100,
+      "is_house_account": true,
+      "status": "active",
+      "notify_payouts": true,
+      "notify_monthly_report": true,
+      "notify_unmapped": false,
+      "created_date": "2025-01-01T00:00:00.000Z",
+      "updated_date": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "ca_blue_melody_02",
+      "client_name": "Blue Melody Records",
+      "contact_email": "client@ottm.com",
+      "contact_phone": "+91 98765 11223",
+      "revenue_share_pct": 85,
+      "is_house_account": false,
+      "status": "active",
+      "notify_payouts": true,
+      "notify_monthly_report": true,
+      "notify_unmapped": true,
+      "created_date": "2025-01-15T00:00:00.000Z",
+      "updated_date": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "ca_acoustic_vibe_03",
+      "client_name": "Acoustic Imprint Beats",
+      "contact_email": "acoustic@labels.com",
+      "contact_phone": "+91 91234 56789",
+      "revenue_share_pct": 80,
+      "is_house_account": false,
+      "status": "active",
+      "notify_payouts": true,
+      "notify_monthly_report": true,
+      "notify_unmapped": false,
+      "created_date": "2025-02-01T00:00:00.000Z",
+      "updated_date": "2025-02-01T00:00:00.000Z"
+    }
+  ],
+  "User": [
+    {
+      "id": "user_admin_001",
+      "email": "admin@ottm.com",
+      "password": "admin123",
+      "name": "Admin User",
+      "role": "admin",
+      "created_date": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "user_client_001",
+      "email": "client@ottm.com",
+      "password": "client123",
+      "name": "Blue Melody Client",
+      "role": "user",
+      "client_account_id": "ca_blue_melody_02",
+      "created_date": "2025-01-15T00:00:00.000Z"
+    }
+  ],
+  "RevenueRow": [
+    {
+      "id": "rev_001",
+      "report_month": "2026-01",
+      "client_account_id": "ca_blue_melody_02",
+      "label_imprint": "Blue Melody",
+      "track_title": "Sufi Soul Acoustic",
+      "artist_name": "Arijit Singh Remix",
+      "album_title": "Soul Acoustic Vol 1",
+      "isrc": "INXX12600001",
+      "store_dsp": "Spotify",
+      "country": "IN",
+      "gross_revenue": 1250.5,
+      "client_share": 1062.92,
+      "ott_commission": 187.58,
+      "units": 245000,
+      "is_house_label": false,
+      "is_unmapped": false,
+      "vendor_id": "v_spotify",
+      "created_date": "2026-01-20T10:00:00.000Z"
+    },
+    {
+      "id": "rev_002",
+      "report_month": "2026-01",
+      "client_account_id": "ca_blue_melody_02",
+      "label_imprint": "Blue Melody",
+      "track_title": "Midnight Rain Lofi",
+      "artist_name": "Arijit Singh Remix",
+      "album_title": "Monsoon Beats",
+      "isrc": "INXX12600002",
+      "store_dsp": "Apple Music",
+      "country": "US",
+      "gross_revenue": 840.25,
+      "client_share": 714.21,
+      "ott_commission": 126.04,
+      "units": 92000,
+      "is_house_label": false,
+      "is_unmapped": false,
+      "vendor_id": "v_apple",
+      "created_date": "2026-01-20T10:00:00.000Z"
+    },
+    {
+      "id": "rev_003",
+      "report_month": "2026-01",
+      "client_account_id": "ca_acoustic_vibe_03",
+      "label_imprint": "Acoustic Vibe",
+      "track_title": "Desert Echoes",
+      "artist_name": "Rahat Fateh Ali Lo-Fi",
+      "album_title": "Desert Vibes",
+      "isrc": "INXX12600003",
+      "store_dsp": "Spotify",
+      "country": "AE",
+      "gross_revenue": 620,
+      "client_share": 496,
+      "ott_commission": 124,
+      "units": 180000,
+      "is_house_label": false,
+      "is_unmapped": false,
+      "vendor_id": "v_pdl",
+      "created_date": "2026-01-20T10:00:00.000Z"
+    },
+    {
+      "id": "rev_004",
+      "report_month": "2026-01",
+      "client_account_id": "ca_ott_house_01",
+      "label_imprint": "OTT House",
+      "track_title": "OTT Theme Anthem",
+      "artist_name": "OTT Signature Band",
+      "album_title": "OTT Greatest Hits",
+      "isrc": "INXX12600004",
+      "store_dsp": "Spotify",
+      "country": "IN",
+      "gross_revenue": 3100,
+      "client_share": 3100,
+      "ott_commission": 0,
+      "units": 620000,
+      "is_house_label": true,
+      "is_unmapped": false,
+      "vendor_id": "v_spotify",
+      "created_date": "2026-01-20T10:00:00.000Z"
+    },
+    {
+      "id": "rev_005",
+      "report_month": "2025-12",
+      "client_account_id": "ca_blue_melody_02",
+      "label_imprint": "Blue Melody",
+      "track_title": "Sufi Soul Acoustic",
+      "artist_name": "Arijit Singh Remix",
+      "album_title": "Soul Acoustic Vol 1",
+      "isrc": "INXX12600001",
+      "store_dsp": "Spotify",
+      "country": "IN",
+      "gross_revenue": 1100,
+      "client_share": 935,
+      "ott_commission": 165,
+      "units": 210000,
+      "is_house_label": false,
+      "is_unmapped": false,
+      "vendor_id": "v_spotify",
+      "created_date": "2025-12-20T10:00:00.000Z"
+    },
+    {
+      "id": "rev_006",
+      "report_month": "2026-01",
+      "client_account_id": null,
+      "label_imprint": "Pending Indie Records",
+      "track_title": "Unmapped Chill Vibes",
+      "artist_name": "Unknown Artist",
+      "album_title": "Indie Mixtape",
+      "isrc": "INXX12600099",
+      "store_dsp": "Spotify",
+      "country": "IN",
+      "gross_revenue": 150,
+      "client_share": 0,
+      "ott_commission": 150,
+      "units": 35000,
+      "is_house_label": false,
+      "is_unmapped": true,
+      "vendor_id": "v_spotify",
+      "created_date": "2026-01-22T10:00:00.000Z"
+    }
+  ],
+  "MonthlyAggregate": [
+    {
+      "id": "agg_2026_01",
+      "report_month": "2026-01",
+      "house_gross": 3100,
+      "house_rows": 1,
+      "client_gross": 2710.75,
+      "client_rows": 2,
+      "unmapped_gross": 150,
+      "unmapped_rows": 1,
+      "total_rows": 4,
+      "per_client": "[{\"client_account_id\":\"ca_blue_melody_02\",\"gross\":2090.75,\"units\":337000,\"track_count\":2},{\"client_account_id\":\"ca_acoustic_vibe_03\",\"gross\":620,\"units\":180000,\"track_count\":1}]",
+      "per_vendor": "[{\"key\":\"Spotify Direct\",\"gross\":4500.5,\"units\":865000,\"rows\":3},{\"key\":\"Apple Music\",\"gross\":840.25,\"units\":92000,\"rows\":1},{\"key\":\"PDL Global\",\"gross\":620,\"units\":180000,\"rows\":1}]",
+      "per_imprint": "[{\"key\":\"OTT House\",\"is_house\":true,\"gross\":3100,\"units\":620000,\"rows\":1},{\"key\":\"Blue Melody\",\"is_house\":false,\"gross\":2090.75,\"units\":337000,\"rows\":2},{\"key\":\"Acoustic Vibe\",\"is_house\":false,\"gross\":620,\"units\":180000,\"rows\":1}]",
+      "created_date": "2026-01-25T00:00:00.000Z"
+    },
+    {
+      "id": "agg_2025_12",
+      "report_month": "2025-12",
+      "house_gross": 2500,
+      "house_rows": 1,
+      "client_gross": 1100,
+      "client_rows": 1,
+      "unmapped_gross": 0,
+      "unmapped_rows": 0,
+      "total_rows": 2,
+      "per_client": "[{\"client_account_id\":\"ca_blue_melody_02\",\"gross\":1100,\"units\":210000,\"track_count\":1}]",
+      "per_vendor": "[{\"key\":\"Spotify Direct\",\"gross\":3600,\"units\":650000,\"rows\":2}]",
+      "per_imprint": "[{\"key\":\"OTT House\",\"is_house\":true,\"gross\":2500,\"units\":500000,\"rows\":1}]",
+      "created_date": "2025-12-25T00:00:00.000Z"
+    }
+  ],
+  "MonthlyFxRate": [
+    {
+      "id": "fx_2025_10",
+      "year": 2025,
+      "month": 10,
+      "rate": 84.15,
+      "source": "frankfurter",
+      "created_date": "2025-10-01T00:00:00.000Z"
+    },
+    {
+      "id": "fx_2025_11",
+      "year": 2025,
+      "month": 11,
+      "rate": 84.42,
+      "source": "frankfurter",
+      "created_date": "2025-11-01T00:00:00.000Z"
+    },
+    {
+      "id": "fx_2025_12",
+      "year": 2025,
+      "month": 12,
+      "rate": 84.78,
+      "source": "frankfurter",
+      "created_date": "2025-12-01T00:00:00.000Z"
+    },
+    {
+      "id": "fx_2026_01",
+      "year": 2026,
+      "month": 1,
+      "rate": 85.2,
+      "source": "frankfurter",
+      "created_date": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "fx_2026_02",
+      "year": 2026,
+      "month": 2,
+      "rate": 85.65,
+      "source": "frankfurter",
+      "created_date": "2026-02-01T00:00:00.000Z"
+    }
+  ],
+  "Vendor": [
+    {
+      "id": "v_orchard",
+      "name": "Orchard",
+      "vendor_name": "The Orchard",
+      "status": "active",
+      "created_date": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "v_pdl",
+      "name": "PDL",
+      "vendor_name": "PDL Global",
+      "status": "active",
+      "created_date": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "v_spotify",
+      "name": "Spotify Direct",
+      "vendor_name": "Spotify Direct",
+      "status": "active",
+      "created_date": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "v_apple",
+      "name": "Apple Music",
+      "vendor_name": "Apple Music",
+      "status": "active",
+      "created_date": "2025-01-01T00:00:00.000Z"
+    }
+  ],
+  "LabelMapping": [
+    {
+      "id": "lm_01",
+      "raw_imprint": "Blue Melody",
+      "client_account_id": "ca_blue_melody_02",
+      "created_date": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "lm_02",
+      "raw_imprint": "OTT Originals",
+      "client_account_id": "ca_ott_house_01",
+      "created_date": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "lm_03",
+      "raw_imprint": "Acoustic Vibe",
+      "client_account_id": "ca_acoustic_vibe_03",
+      "created_date": "2025-02-01T00:00:00.000Z"
+    }
+  ],
+  "ArtistMapping": [
+    {
+      "id": "am_01",
+      "artist_name": "Arijit Singh Remix",
+      "client_account_id": "ca_blue_melody_02",
+      "created_date": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "am_02",
+      "artist_name": "Rahat Fateh Ali Lo-Fi",
+      "client_account_id": "ca_acoustic_vibe_03",
+      "created_date": "2025-02-01T00:00:00.000Z"
+    },
+    {
+      "id": "am_03",
+      "artist_name": "OTT Signature Band",
+      "client_account_id": "ca_ott_house_01",
+      "created_date": "2025-01-01T00:00:00.000Z"
+    }
+  ],
+  "Payout": [
+    {
+      "id": "payout_001",
+      "client_account_id": "ca_blue_melody_02",
+      "amount": 1500,
+      "period": "2025-12",
+      "payment_date": "2026-01-15T00:00:00.000Z",
+      "status": "paid",
+      "payment_method": "Bank Wire",
+      "reference_number": "TXN-98234-OTTM",
+      "created_date": "2026-01-10T12:00:00.000Z"
+    },
+    {
+      "id": "payout_002",
+      "client_account_id": "ca_blue_melody_02",
+      "amount": 1777.13,
+      "period": "2026-01",
+      "payment_date": "2026-02-15T00:00:00.000Z",
+      "status": "processing",
+      "payment_method": "Bank Wire",
+      "reference_number": "TXN-98235-OTTM",
+      "created_date": "2026-02-10T12:00:00.000Z"
+    }
+  ],
+  "CsvUploadJob": [],
+  "CatalogSearchJob": [],
+  "ActivityLog": [
+    {
+      "id": "act_001",
+      "action": "system_init",
+      "description": "Local self-hosted system initialized",
+      "entity_type": "System",
+      "created_date": "2026-09-28T08:36:24.925Z"
+    },
+    {
+      "id": "act_002",
+      "action": "catalog_sync",
+      "description": "Initial catalog mappings synced",
+      "entity_type": "Catalog",
+      "created_date": "2026-09-28T08:36:24.925Z"
+    }
+  ],
+  "SupportTicket": [
+    {
+      "id": "st_001",
+      "subject": "January 2026 Revenue Statement Inquiry",
+      "client_account_id": "ca_blue_melody_02",
+      "period": "2026-01",
+      "status": "open",
+      "created_by_id": "user_client_001",
+      "created_date": "2026-01-28T10:00:00.000Z"
+    }
+  ],
+  "TicketMessage": [
+    {
+      "id": "tm_001",
+      "ticket_id": "st_001",
+      "sender_id": "user_client_001",
+      "sender_name": "Blue Melody Client",
+      "message": "Hello, could you confirm when the January payouts will be disbursed?",
+      "created_date": "2026-01-28T10:05:00.000Z"
+    }
+  ]
+}

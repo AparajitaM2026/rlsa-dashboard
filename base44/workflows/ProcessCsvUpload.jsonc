@@ -1,0 +1,492 @@
+{
+  "name": "Process CSV Upload",
+  "description": "Routes an uploaded Orchard CSV revenue file in the background, then caches the period's aggregates. Compressed (.gz/.zip) uploads are extracted once into plain-CSV fragments; each fragment/chunk is routed in a bounded sequence of short, resumable invocations until the whole file is processed. A final resumable aggregation step recomputes the MonthlyAggregate cache (house/client/unmapped totals + per-client/country/store/imprint breakdowns) by summing EVERY row for the period across multiple 200k-row passes (a full month can exceed the per-call entity read-traffic limit), so dashboards read correct totals instantly without rescanning hundreds of thousands of rows. The workflow is a fixed-length chain (not a cycle), so it is not blocked by the platform's unbounded-cycle / infinite-loop prevention.",
+  "trigger": {
+    "config": {
+      "trigger_type": "entity",
+      "entity_name": "CsvUploadJob",
+      "events": [
+        "create",
+        "update"
+      ]
+    },
+    "condition": "${ .trigger.data.status == \"pending\" }"
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "process_csv_upload",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "p1": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p2",
+          "x-base44": {
+            "title": "Process chunk 1"
+          }
+        }
+      },
+      {
+        "p2": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p3",
+          "x-base44": {
+            "title": "Process chunk 2"
+          }
+        }
+      },
+      {
+        "p3": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p4",
+          "x-base44": {
+            "title": "Process chunk 3"
+          }
+        }
+      },
+      {
+        "p4": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p5",
+          "x-base44": {
+            "title": "Process chunk 4"
+          }
+        }
+      },
+      {
+        "p5": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p6",
+          "x-base44": {
+            "title": "Process chunk 5"
+          }
+        }
+      },
+      {
+        "p6": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p7",
+          "x-base44": {
+            "title": "Process chunk 6"
+          }
+        }
+      },
+      {
+        "p7": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p8",
+          "x-base44": {
+            "title": "Process chunk 7"
+          }
+        }
+      },
+      {
+        "p8": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p9",
+          "x-base44": {
+            "title": "Process chunk 8"
+          }
+        }
+      },
+      {
+        "p9": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p10",
+          "x-base44": {
+            "title": "Process chunk 9"
+          }
+        }
+      },
+      {
+        "p10": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p11",
+          "x-base44": {
+            "title": "Process chunk 10"
+          }
+        }
+      },
+      {
+        "p11": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p12",
+          "x-base44": {
+            "title": "Process chunk 11"
+          }
+        }
+      },
+      {
+        "p12": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p13",
+          "x-base44": {
+            "title": "Process chunk 12"
+          }
+        }
+      },
+      {
+        "p13": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p14",
+          "x-base44": {
+            "title": "Process chunk 13"
+          }
+        }
+      },
+      {
+        "p14": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p15",
+          "x-base44": {
+            "title": "Process chunk 14"
+          }
+        }
+      },
+      {
+        "p15": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p16",
+          "x-base44": {
+            "title": "Process chunk 15"
+          }
+        }
+      },
+      {
+        "p16": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p17",
+          "x-base44": {
+            "title": "Process chunk 16"
+          }
+        }
+      },
+      {
+        "p17": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p18",
+          "x-base44": {
+            "title": "Process chunk 17"
+          }
+        }
+      },
+      {
+        "p18": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p19",
+          "x-base44": {
+            "title": "Process chunk 18"
+          }
+        }
+      },
+      {
+        "p19": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p20",
+          "x-base44": {
+            "title": "Process chunk 19"
+          }
+        }
+      },
+      {
+        "p20": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p21",
+          "x-base44": {
+            "title": "Process chunk 20"
+          }
+        }
+      },
+      {
+        "p21": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p22",
+          "x-base44": {
+            "title": "Process chunk 21"
+          }
+        }
+      },
+      {
+        "p22": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p23",
+          "x-base44": {
+            "title": "Process chunk 22"
+          }
+        }
+      },
+      {
+        "p23": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p24",
+          "x-base44": {
+            "title": "Process chunk 23"
+          }
+        }
+      },
+      {
+        "p24": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "p25",
+          "x-base44": {
+            "title": "Process chunk 24"
+          }
+        }
+      },
+      {
+        "p25": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "processCsvJob",
+            "args": {
+              "job_id": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "agg1",
+          "x-base44": {
+            "title": "Process chunk 25"
+          }
+        }
+      },
+      {
+        "agg1": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "aggregateRevenue",
+            "args": {
+              "report_month": "${ .trigger.data.report_month }"
+            }
+          },
+          "then": "agg2",
+          "x-base44": {
+            "title": "Aggregate pass 1",
+            "description": "Resumable cache build (200k rows/call) \u2014 repeats until scan_complete"
+          }
+        }
+      },
+      {
+        "agg2": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "aggregateRevenue",
+            "args": {
+              "report_month": "${ .trigger.data.report_month }"
+            }
+          },
+          "then": "agg3",
+          "x-base44": {
+            "title": "Aggregate pass 2"
+          }
+        }
+      },
+      {
+        "agg3": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "aggregateRevenue",
+            "args": {
+              "report_month": "${ .trigger.data.report_month }"
+            }
+          },
+          "then": "agg4",
+          "x-base44": {
+            "title": "Aggregate pass 3"
+          }
+        }
+      },
+      {
+        "agg4": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "aggregateRevenue",
+            "args": {
+              "report_month": "${ .trigger.data.report_month }"
+            }
+          },
+          "then": "agg5",
+          "x-base44": {
+            "title": "Aggregate pass 4"
+          }
+        }
+      },
+      {
+        "agg5": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "aggregateRevenue",
+            "args": {
+              "report_month": "${ .trigger.data.report_month }"
+            }
+          },
+          "then": "agg6",
+          "x-base44": {
+            "title": "Aggregate pass 5"
+          }
+        }
+      },
+      {
+        "agg6": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "aggregateRevenue",
+            "args": {
+              "report_month": "${ .trigger.data.report_month }"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Aggregate pass 6",
+            "description": "Final pass \u2014 completes the cache (extra passes return instantly once scan_complete)"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "name": "RevenueRow",
+  "type": "object",
+  "properties": {
+    "report_month": {
+      "type": "string",
+      "description": "Reporting month in YYYY-MM format"
+    },
+    "vendor_name": {
+      "type": "string",
+      "default": "Orchard",
+      "description": "Distributor / vendor source (e.g. Orchard, PDL, Symphonic)"
+    },
+    "label_imprint": {
+      "type": "string",
+      "description": "Raw LABEL IMPRINT from the CSV"
+    },
+    "client_account_id": {
+      "type": "string",
+      "description": "Mapped ClientAccount id (null for house / unmapped)"
+    },
+    "is_house_label": {
+      "type": "boolean",
+      "default": false,
+      "description": "True if routed to the house catalog"
+    },
+    "is_unmapped": {
+      "type": "boolean",
+      "default": false,
+      "description": "True if no label mapping resolved"
+    },
+    "track_title": {
+      "type": "string"
+    },
+    "isrc": {
+      "type": "string"
+    },
+    "album_title": {
+      "type": "string"
+    },
+    "artist": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "store_dsp": {
+      "type": "string"
+    },
+    "units": {
+      "type": "number",
+      "default": 0
+    },
+    "gross_revenue": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD",
+      "description": "Currency of the gross_revenue amount (USD after PDL FX conversion)"
+    },
+    "caller_tune": {
+      "type": "string"
+    },
+    "revenue_type": {
+      "type": "string"
+    },
+    "row_hash": {
+      "type": "string",
+      "description": "Idempotency hash of (vendor, isrc/track, report_month, store, units, gross_revenue) for additive ingestion dedup"
+    },
+    "party_id": {
+      "type": "string",
+      "description": "Party / tenant id this revenue row belongs to"
+    }
+  },
+  "required": [
+    "report_month",
+    "label_imprint"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "$and": [
+            {
+              "data.party_id": "{{user.data.party_id}}"
+            },
+            {
+              "user_condition": {
+                "data.access_role": "PARTY_ADMIN"
+              }
+            }
+          ]
+        },
+        {
+          "$and": [
+            {
+              "data.client_account_id": "{{user.data.client_account_id}}"
+            },
+            {
+              "data.client_account_id": {
+                "$ne": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "Platform role. SUPER_ADMIN maps to 'admin'; PARTY_ADMIN and CLIENT_USER map to 'user'.",
+      "enum": [
+        "admin",
+        "user"
+      ]
+    },
+    "access_role": {
+      "type": "string",
+      "description": "App-level hierarchy role for multi-tenancy",
+      "enum": [
+        "SUPER_ADMIN",
+        "PARTY_ADMIN",
+        "CLIENT_USER"
+      ]
+    },
+    "party_id": {
+      "type": "string",
+      "description": "Party / tenant id this user belongs to"
+    },
+    "client_account_id": {
+      "type": "string",
+      "description": "ClientAccount id this CLIENT_USER is linked to (set when the user is linked to a client account). Used by RLS to scope account-level data."
+    }
+  },
+  "required": [
+    "role"
+  ]
+}
